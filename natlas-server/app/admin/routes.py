@@ -129,8 +129,6 @@ def scope():
     addTagForm = forms.TagScopeForm()
     addTagForm.tagname.choices = [(row.name, row.name) for row in Tag.query.all()]
     if newForm.validate_on_submit():
-        if "/" not in newForm.target.data:
-            newForm.target.data = newForm.target.data + "/32"
         target = ipaddress.ip_network(newForm.target.data, False)
         newTarget = ScopeItem(target=target.with_prefixlen, blacklist=False)
         db.session.add(newTarget)
@@ -164,8 +162,6 @@ def blacklist():
     addTagForm = forms.TagScopeForm()
     addTagForm.tagname.choices = [(row.name, row.name) for row in Tag.query.all()]
     if newForm.validate_on_submit():
-        if "/" not in newForm.target.data:
-            newForm.target.data = newForm.target.data + "/32"
         target = ipaddress.ip_network(newForm.target.data, False)
         newTarget = ScopeItem(target=target.with_prefixlen, blacklist=True)
         db.session.add(newTarget)
@@ -199,7 +195,9 @@ def import_scope(scopetype=""):
         return abort(404)
     if importForm.validate_on_submit():
         newScopeItems = importForm.scope.data.split("\n")
-        fail, exist, success = ScopeItem.import_scope(newScopeItems, importBlacklist)
+        fail, exist, success = ScopeItem.import_scope_list(
+            newScopeItems, importBlacklist
+        )
         db.session.commit()
         current_app.ScopeManager.update()
         if success:
@@ -298,7 +296,7 @@ def untag_scope(scopetype, id):
         return abort(404)
     delTagForm = forms.TagScopeForm()
     scope = ScopeItem.query.get(id)
-    delTagForm.tagname.choices = [(row.name, row.name) for row in scope.tags.all()]
+    delTagForm.tagname.choices = [(row.name, row.name) for row in scope.tags]
     if delTagForm.validate_on_submit():
         mytag = Tag.query.filter_by(name=delTagForm.tagname.data).first()
         scope.delTag(mytag)

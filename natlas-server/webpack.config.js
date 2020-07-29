@@ -1,5 +1,6 @@
 /* eslint-env node */
 const path = require('path');
+const webpack = require('webpack');
 const WebpackManifestPlugin = require('webpack-yam-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const assetRootPath = path.resolve(__dirname, 'app', 'static');
@@ -31,9 +32,7 @@ const config = (env, argv) => {
                 },
                 {
                     test: /\.(svg|eot|woff|woff2|ttf)(\?v=\d+\.\d+\.\d+)?$/,
-                    use: [
-                        'file-loader?publicPath=/static/dist'
-                    ]
+                    use: 'file-loader?publicPath=/static/dist'
                 }
             ]
         },
@@ -46,6 +45,9 @@ const config = (env, argv) => {
             new WebpackManifestPlugin({
                 manifestPath: path.resolve(assetRootPath, 'dist', 'webpack_manifest.json'),
                 outputRoot: assetRootPath
+            }),
+            new webpack.EnvironmentPlugin({
+                NATLAS_VERSION: "dev"
             })
         ],
         resolve: {

@@ -19,8 +19,8 @@ class ScopeItem(db.Model, DictSerializable):
         "Tag",
         secondary=scopetags,
         primaryjoin=(scopetags.c.scope_id == id),
-        backref=db.backref("scope", lazy="dynamic"),
-        lazy="dynamic",
+        backref=db.backref("scope", lazy=True),
+        lazy=True,
     )
 
     def addTag(self, tag):
@@ -32,7 +32,7 @@ class ScopeItem(db.Model, DictSerializable):
             self.tags.remove(tag)
 
     def is_tagged(self, tag):
-        return self.tags.filter(scopetags.c.tag_id == tag.id).count() > 0
+        return tag in self.tags
 
     @staticmethod
     def getBlacklist():
@@ -62,8 +62,6 @@ class ScopeItem(db.Model, DictSerializable):
             ip = line
             tags = []
 
-        if "/" not in ip:
-            ip = ip + "/32"
         ip = ScopeItem.validate_ip(ip)
         return ip, tags
 
