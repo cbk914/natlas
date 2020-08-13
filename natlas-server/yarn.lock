@@ -6407,10 +6407,10 @@ tslint@^6.1.2:
     tslib "^1.10.0"
     tsutils "^2.29.0"
 
-tsparticles@^1.17.2:
-  version "1.17.2"
-  resolved "https://registry.yarnpkg.com/tsparticles/-/tsparticles-1.17.2.tgz#ddedb16e7c090d85600c1dc86d4300385001d8bb"
-  integrity sha512-IPNNFPZxS19MhTypXZQkVRWx5ACi9KxOY+ujfR9lty8XTQOlWXRxgkbMw+Wc0bkAIjWZiOmEyuPgAZDOGO8U9Q==
+tsparticles@^1.17.3:
+  version "1.17.7"
+  resolved "https://registry.yarnpkg.com/tsparticles/-/tsparticles-1.17.7.tgz#37ee621a7e68c70a1750a420f105cc0c45fe7cdc"
+  integrity sha512-+9b0YplbE38WPxWAMwYQ6+VLZ4LsDG8N3RAPx8ezwsi0IfR1ZEirfuHOUoYv3KfPMpmJOxf0F4jAFcq47uwyMA==
   dependencies:
     pathseg "^1.2.0"
     tslib "^2.0.0"
