@@ -16,7 +16,7 @@
 >>>>>>> main
         "datatables.net-bs4": "^1.10.20",
         "jquery": "^3.4.1",
-        "tsparticles": "^1.17.2",
+        "tsparticles": "^1.17.3",
         "popper.js": "^1.16.0",
         "tslint": "^6.1.3"
     },
